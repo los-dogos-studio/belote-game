@@ -2,10 +2,10 @@ package com.github.konstantinevashalomidze.belotegame.tamashi;
 
 import java.util.List;
 
-public class KartisQulisGamomtvleli {
+public class QulisGamomtvleli {
     private final Cveti koziriCveti;
 
-    public KartisQulisGamomtvleli(Cveti koziriCveti) {
+    public QulisGamomtvleli(Cveti koziriCveti) {
         this.koziriCveti = koziriCveti;
     }
 
