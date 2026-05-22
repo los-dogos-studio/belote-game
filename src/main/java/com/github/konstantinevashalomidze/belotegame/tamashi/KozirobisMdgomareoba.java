@@ -3,17 +3,17 @@ package com.github.konstantinevashalomidze.belotegame.tamashi;
 public class KozirobisMdgomareoba {
     private KozirobisFaza kozirobisFaza = KozirobisFaza.PIRVELI_KRUGI;
     private final Karti amotrialebuliKarti;
-    private int mimdinareMotamashisIndexi; // visi jeria svlis
-    private final int kartisDamrigebelisIndexi;
+    private int mimdinareMotamashisPozicia; // visi jeria svlis
+    private final int kartisDamrigebelisPozicia;
     private Cveti koziriCveti;  // null sheileba
     private Motamashe mokozire; //  null sheileba
 
-    public KozirobisMdgomareoba(Karti amotrialebuliKarti, int kartisDamrigebelisIndexi) {
+    public KozirobisMdgomareoba(Karti amotrialebuliKarti, int kartisDamrigebelisPozicia) {
         this.amotrialebuliKarti = amotrialebuliKarti;
-        this.kartisDamrigebelisIndexi = kartisDamrigebelisIndexi;
+        this.kartisDamrigebelisPozicia = kartisDamrigebelisPozicia;
         // koziroba dileris shemdegi motaashe aris pirveli
         // magisgan iwyeba koziroba
-        this.mimdinareMotamashisIndexi = (kartisDamrigebelisIndexi + 1) % 4;
+        this.mimdinareMotamashisPozicia = (kartisDamrigebelisPozicia + 1) % 4;
     }
 
     public KozirobisFaza kozirobisFaza() {
@@ -24,8 +24,8 @@ public class KozirobisMdgomareoba {
         return amotrialebuliKarti;
     }
 
-    public int mimdinareMotamashisIndexi() {
-        return mimdinareMotamashisIndexi;
+    public int mimdinareMotamashisPozicia() {
+        return mimdinareMotamashisPozicia;
     }
 
     public Cveti koziriCveti() {
@@ -47,20 +47,20 @@ public class KozirobisMdgomareoba {
     }
 
     public void sityvaShemdegMotamashezeGadavida() {
-        mimdinareMotamashisIndexi = (mimdinareMotamashisIndexi + 1) % 4;
+        mimdinareMotamashisPozicia = (mimdinareMotamashisPozicia + 1) % 4;
     }
 
     public void shemdegiKrugiDaiwyo() {
         kozirobisFaza = KozirobisFaza.MEORE_KRUGI;
-        mimdinareMotamashisIndexi = (kartisDamrigebelisIndexi + 1) % 4;
+        mimdinareMotamashisPozicia = (kartisDamrigebelisPozicia + 1) % 4;
     }
 
     public boolean sityvaVinujdenzea() {
-        return mimdinareMotamashisIndexi == kartisDamrigebelisIndexi;
+        return mimdinareMotamashisPozicia == kartisDamrigebelisPozicia;
     }
 
-    public int kartisDamrigebelisIndexi() {
-        return kartisDamrigebelisIndexi;
+    public int kartisDamrigebelisPozicia() {
+        return kartisDamrigebelisPozicia;
     }
 
 }

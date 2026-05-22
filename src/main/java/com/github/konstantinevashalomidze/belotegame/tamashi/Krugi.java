@@ -34,7 +34,7 @@ public class Krugi {
         return natamashebiKartebi.stream()
                 .map(NatamashebiKarti::karti)
                 .filter(karti -> karti.cveti() == koziriCveti)
-                .max(Comparator.comparingInt(c -> koziriKartisIndexi(c.ranki())))
+                .max(Comparator.comparingInt(c -> c.ranki().dzala(true)))
                 .orElse(null);
     }
     
@@ -52,41 +52,15 @@ public class Krugi {
         if (mokozirda()) {
             return natamashebiKartebi.stream()
                     .filter(nk -> nk.karti().cveti() == koziriCveti)
-                    .max(Comparator.comparingInt(nk -> koziriKartisIndexi(nk.karti().ranki())))
+                    .max(Comparator.comparingInt(nk -> nk.karti().ranki().dzala(true)))
                     .orElseThrow();
         } else {
             Cveti natarebiCveti = raaNatarebi();
             return natamashebiKartebi.stream()
                     .filter(nk -> nk.karti().cveti() == natarebiCveti)
-                    .max(Comparator.comparingInt(nk -> kartisIndexi(nk.karti().ranki())))
+                    .max(Comparator.comparingInt(nk -> nk.karti().ranki().dzala(false)))
                     .orElseThrow();
         }
-    }
-
-    private int kartisIndexi(Ranki ranki) {
-        return switch (ranki) {
-            case TUZI -> 7;
-            case ATI -> 6;
-            case KAROLI -> 5;
-            case DAMA -> 4;
-            case VALETI -> 3;
-            case CXRA -> 2;
-            case RVA -> 1;
-            case SHVIDI -> 0;
-        };
-    }
-
-    private int koziriKartisIndexi(Ranki ranki) {
-        return switch (ranki) {
-            case VALETI -> 7;
-            case CXRA -> 6;
-            case TUZI -> 5;
-            case ATI -> 4;
-            case KAROLI -> 3;
-            case DAMA -> 2;
-            case RVA -> 1;
-            case SHVIDI -> 0;
-        };
     }
 
 }

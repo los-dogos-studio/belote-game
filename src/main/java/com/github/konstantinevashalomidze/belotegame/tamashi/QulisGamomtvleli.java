@@ -25,33 +25,8 @@ public class QulisGamomtvleli {
 
     private int kartisQula(Karti karti) {
         boolean koziria = karti.cveti() == koziriCveti;
-        return koziria ? koziriKartisQula(karti.ranki()) : kartisQula(karti.ranki());
+        return koziria ? karti.ranki().qula(true) : karti.ranki().qula(false);
     }
 
-    private int koziriKartisQula(Ranki ranki) {
-        return switch (ranki) {
-            case VALETI -> 20;
-            case CXRA -> 14;
-            case TUZI -> 11;
-            case ATI -> 10;
-            case KAROLI -> 4;
-            case DAMA -> 3;
-            case RVA -> 0;
-            case SHVIDI -> 0;
-        };
-    }
-
-    private int kartisQula(Ranki ranki) {
-        return switch (ranki) {
-            case TUZI -> 11;
-            case ATI -> 10;
-            case KAROLI -> 4;
-            case DAMA -> 3;
-            case VALETI -> 2;
-            case CXRA -> 0;
-            case RVA -> 0;
-            case SHVIDI -> 0;
-        };
-    }
 
 }

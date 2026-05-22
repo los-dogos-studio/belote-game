@@ -1,6 +1,5 @@
 package com.github.konstantinevashalomidze.belotegame.tamashi;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class KozirobisMmartveli {
@@ -15,7 +14,7 @@ public class KozirobisMmartveli {
 
 
     public void sheamowmeAmotrialebuliKartiValetze() {
-        Motamashe pirveliMotamashe = motamasheebi.get((kozirobisMdgomareoba.kartisDamrigebelisIndexi() + 1) % 4);
+        Motamashe pirveliMotamashe = motamasheebi.get((kozirobisMdgomareoba.kartisDamrigebelisPozicia() + 1) % 4);
         Karti amotrialebuliKarti = kozirobisMdgomareoba.amotrialebuliKarti();
         boolean valetia = pirveliMotamashe.xeli().kartebi().stream()
                 .anyMatch(k -> k.cveti() == amotrialebuliKarti.cveti() && k.ranki() == Ranki.VALETI);
@@ -34,6 +33,12 @@ public class KozirobisMmartveli {
         }
     }
 
+    public void ikozira(Motamashe motamashe) {
+        davushvitRomSityvisTqmisUflebaaqvs(motamashe);
+        Cveti cveti = kozirobisMdgomareoba.amotrialebuliKarti().cveti();
+        kozirobisMdgomareoba.ikozira(motamashe, cveti);
+    }
+
     public void ikozira(Motamashe motamashe, Cveti cveti) {
         davushvitRomSityvisTqmisUflebaaqvs(motamashe);
 
@@ -45,7 +50,7 @@ public class KozirobisMmartveli {
 
 
     public void vinujdenmaIkozira(Cveti cveti) {
-        Motamashe vinujdeni = motamasheebi.get(kozirobisMdgomareoba.kartisDamrigebelisIndexi());
+        Motamashe vinujdeni = motamasheebi.get(kozirobisMdgomareoba.kartisDamrigebelisPozicia());
         if (cveti == kozirobisMdgomareoba.amotrialebuliKarti().cveti()) {
             throw new IllegalArgumentException("თუ გინდოდა წინა კრუგზე წაგეღო კვერცხო.");
         }
@@ -53,7 +58,7 @@ public class KozirobisMmartveli {
     }
 
     private void davushvitRomSityvisTqmisUflebaaqvs(Motamashe motamashe) {
-        if (motamasheebi.indexOf(motamashe) != kozirobisMdgomareoba.mimdinareMotamashisIndexi()) {
+        if (motamasheebi.indexOf(motamashe) != kozirobisMdgomareoba.mimdinareMotamashisPozicia()) {
             throw new IllegalStateException("შენი ჯერი არაა ბლიად, რა მოტყანი ტვინი.");
         }
     }

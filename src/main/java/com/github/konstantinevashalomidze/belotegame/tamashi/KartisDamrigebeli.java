@@ -4,11 +4,11 @@ import java.util.List;
 
 public class KartisDamrigebeli {
     private final List<Motamashe> motamasheebi; // saatis isris mimart. indexi 0-3
-    private final int kartisDamrigebelisIndexi; // romelia dileri am raundshi
+    private final int kartisDamrigebelisPozicia; // romelia dileri am raundshi
 
-    public KartisDamrigebeli(List<Motamashe> motamasheebi, int kartisDamrigebelisIndexi) {
+    public KartisDamrigebeli(List<Motamashe> motamasheebi, int kartisDamrigebelisPozicia) {
         this.motamasheebi = motamasheebi;
-        this.kartisDamrigebelisIndexi = kartisDamrigebelisIndexi;
+        this.kartisDamrigebelisPozicia = kartisDamrigebelisPozicia;
     }
 
     public KartisDarigebisShedegi pirveladDaarige() {
@@ -16,14 +16,29 @@ public class KartisDamrigebeli {
         dasta.achexe();
 
         for (int step = 1; step <= 4; step++) {
-            int motamashisIndexi = (kartisDamrigebelisIndexi + step) % 4;
+            int motamashisPozicia = (kartisDamrigebelisPozicia + step) % 4;
             for (int micema = 0; micema < 5; micema++) {
-                motamasheebi.get(motamashisIndexi).xeli().daimate(dasta.ertisKartisAmogheba());
+                motamasheebi.get(motamashisPozicia).xeli().daimate(dasta.ertisKartisAmogheba());
             }
         }
         Karti amotrialebuliKarti = dasta.ertisKartisAmogheba();
 
         return new KartisDarigebisShedegi(dasta, amotrialebuliKarti);
     }
+
+    public void meoredDaarige(Dasta darcheniliDasta, Motamashe mokozire, Karti amotrialebuliKarti) {
+        mokozire.xeli().daimate(amotrialebuliKarti);
+
+        for (int i = 1; i <= 4; i++) {
+            int motamashisPozicia = (kartisDamrigebelisPozicia + i) % 4;
+            Motamashe motamashe = motamasheebi.get(motamashisPozicia);
+            int dasarigebeliKartebisRaodenoba = motamashe == mokozire ? 2 : 3;
+            for (int j = 0; j < dasarigebeliKartebisRaodenoba; j++) {
+                motamashe.xeli().daimate(darcheniliDasta.ertisKartisAmogheba());
+            }
+        }
+
+    }
+
 
 }
