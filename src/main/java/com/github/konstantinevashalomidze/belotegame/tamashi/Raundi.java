@@ -172,5 +172,9 @@ public class Raundi {
         return kombinaciisShedegi;
     }
 
+    public Gundi mokozireGundi() {
+        return mokozireGundi;
+    }
+
 
 }
