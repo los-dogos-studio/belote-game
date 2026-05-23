@@ -16,6 +16,7 @@ public class TamashisMexsiereba {
     private final Map<String, String> zedmetsaxeliDaOtaxisId = new ConcurrentHashMap<>();
     private final DastisMomwodebeli dastisMomwodebeli;
 
+    @Autowired
     public TamashisMexsiereba(DastisMomwodebeli dastisMomwodebeli) {
         this.dastisMomwodebeli = dastisMomwodebeli;
     }

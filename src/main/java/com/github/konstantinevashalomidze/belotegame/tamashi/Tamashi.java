@@ -34,7 +34,7 @@ public class Tamashi {
         mimdinareRaundi.daarigeKarti();
     }
 
-    private boolean tamashiDasrulebulia() {
+    public boolean tamashiDasrulebulia() {
         return gundiA.mogebulia() || gundiB.mogebulia();
     }
 
