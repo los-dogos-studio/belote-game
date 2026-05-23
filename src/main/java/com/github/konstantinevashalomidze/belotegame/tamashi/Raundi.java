@@ -26,6 +26,9 @@ public class Raundi {
 
     private RaundisFaza raundisFaza = KARTIS_DARIGEBA;
 
+    private KombinaciisShedegi kombinaciisShedegi;
+
+    private BelotisMayurebeli belotisMayurebeli;
 
     public Raundi(List<Motamashe> motamasheebi, Gundi mokozireGundi, Gundi mowinaaghmdegeGundi, int kartisDamrigeblisPozicia) {
         this.motamasheebi = motamasheebi;
@@ -78,15 +81,22 @@ public class Raundi {
     }
 
     private void sheamowmeSworFazashiTua(RaundisFaza raundisFaza) {
-
+        if (this.raundisFaza != raundisFaza) {
+            throw new IllegalStateException("კაროჩე რაცხა პიზდეცი მოხდა და ვერ გეიგებ მაინც. 500 05 13 94 აქ დარეკე.");
+        }
     }
 
     private void daasruleKoziroba() {
         koziriCveti = kozirobisMdgomareoba.koziriCveti();
         mokozire = kozirobisMdgomareoba.mokozire();
         kartisDamrigebeli.meoredDaarige(darcheniliDasta, mokozire, kozirobisMdgomareoba.amotrialebuliKarti());
-        raundisFaza = KRUGEBI;
 
+        KombinaciisMmartveli mmartveli = new KombinaciisMmartveli(koziriCveti);
+        kombinaciisShedegi = mmartveli.visiKombinaciaGadis(mokozireGundi, mowinaaghmdegeGundi);
+
+        belotisMayurebeli = new BelotisMayurebeli(koziriCveti);
+
+        raundisFaza = KRUGEBI;
         mimdinareMotamashisPozicia = (kartisDamrigeblisPozicia + 1) % 4;
         axaliKrugisDawyeba();
     }
@@ -95,7 +105,7 @@ public class Raundi {
         mimdinareKrugi = new Krugi(koziriCveti);
     }
 
-    public void kartisTamashi(Motamashe motamashe, Karti karti) {
+    public void kartisTamashi(Motamashe motamashe, Karti karti, BelotisCxadeba belotisCxadeba) {
         sheamowmeSworFazashiTua(KRUGEBI);
         if (motamasheebi.indexOf(motamashe) != mimdinareMotamashisPozicia) {
             throw new IllegalStateException("აუ ვინაა ეს ყლე, არაა შენი ჯერი არა!!");
@@ -109,6 +119,8 @@ public class Raundi {
         if (!romeliKartebisTamashiaDasashvebi.contains(karti)) {
             throw new IllegalArgumentException("ვაი ბიძია... რას გვატყუებ ამდენ ხალხს");
         }
+
+        belotisMayurebeli.belotiAnRebelotiCxadda(motamashe, karti, belotisCxadeba);
 
         motamashe.xeli().moishore(karti);
         mimdinareKrugi.motamashemChamovidaKarti(motamashe, karti);
@@ -131,11 +143,34 @@ public class Raundi {
 
     public RaundisShedegi qula() {
         sheamowmeSworFazashiTua(QULEBIS_DATVLA);
-        KombinaciisMmartveli mmartveli = new KombinaciisMmartveli(koziriCveti);
-        KombinaciisShedegi shedegi = mmartveli.visiKombinaciaGadis(mokozireGundi, mowinaaghmdegeGundi);
-        RaundisQulisGamomtvleli gamomtvleli = new RaundisQulisGamomtvleli(koziriCveti, mokozireGundi, mowinaaghmdegeGundi);
-        return gamomtvleli.gamotvale(dasrulebuliKrugebi, shedegi);
-
+        RaundisQulisGamomtvleli raundisQulisGamomtvleli = new RaundisQulisGamomtvleli(koziriCveti, mokozireGundi, mowinaaghmdegeGundi);
+        return raundisQulisGamomtvleli.gamotvale(dasrulebuliKrugebi, kombinaciisShedegi, belotisMayurebeli);
     }
+
+    public List<Karti> romeliKartebisTamashiaDasashvebi(Motamashe motamashe) {
+        sheamowmeSworFazashiTua(KRUGEBI);
+        return new NatamashebiKartisShemmowmebeli(koziriCveti).romeliKartebisTamashiSheidzleba(motamashe, mimdinareKrugi);
+    }
+
+    public RaundisFaza raundisFaza() {
+        return raundisFaza;
+    }
+
+    public KozirobisMdgomareoba kozirobisMdgomareoba() {
+        return kozirobisMdgomareoba;
+    }
+
+    public Krugi mimdinareKrugi() {
+        return mimdinareKrugi;
+    }
+
+    public int mimdinareMotamashisPozicia() {
+        return mimdinareMotamashisPozicia;
+    }
+
+    public KombinaciisShedegi kombinaciisShedegi() {
+        return kombinaciisShedegi;
+    }
+
 
 }

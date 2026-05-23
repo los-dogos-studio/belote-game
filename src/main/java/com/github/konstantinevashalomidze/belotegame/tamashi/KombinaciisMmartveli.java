@@ -33,7 +33,7 @@ public class KombinaciisMmartveli {
     private List<Kombinacia> ipoveYvelaKombinaciaGundis(Gundi gundi) {
         List<Kombinacia> yvela = new ArrayList<>();
         for (Motamashe motamashe : gundi.motamasheebi()) {
-            yvela.addAll(amomcnobi.impoveKombinaciebi(motamashe));
+            yvela.addAll(amomcnobi.ipoveKombinaciebi(motamashe));
         }
         return yvela;
     }

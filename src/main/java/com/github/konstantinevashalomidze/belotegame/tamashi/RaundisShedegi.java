@@ -15,8 +15,8 @@ public record RaundisShedegi(
         return new RaundisShedegi(KAPO, 250, vincChaijvaMagisQula);
     }
 
-    public static RaundisShedegi fre() {
-        return new RaundisShedegi(FRE, 0, 0);
+    public static RaundisShedegi fre(int mowinaaghmdegisQulebi) {
+        return new RaundisShedegi(FRE, 0, mowinaaghmdegisQulebi);
     }
 
     public static RaundisShedegi chveulebrivi(int mokozirisQulebi, int mowinaaghmdegisQulebi) {

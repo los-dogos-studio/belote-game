@@ -13,7 +13,7 @@ public class KombinaciisAmomcnobi {
         this.koziriCveti = koziriCveti;
     }
 
-    public List<Kombinacia> impoveKombinaciebi(Motamashe motamashe) {
+    public List<Kombinacia> ipoveKombinaciebi(Motamashe motamashe) {
         List<Kombinacia> kombinaciebi = new ArrayList<>();
         Xeli xeli = motamashe.xeli();
 

@@ -21,7 +21,7 @@ public class RaundisQulisGamomtvleli {
     }
 
 
-    public RaundisShedegi gamotvale(List<Krugi> krugebi, KombinaciisShedegi kombinaciisShedegi) {
+    public RaundisShedegi gamotvale(List<Krugi> krugebi, KombinaciisShedegi kombinaciisShedegi, BelotisMayurebeli belotisMayurebeli) {
         List<Krugi> mokoziresKrugebi = new ArrayList<>();
         List<Krugi> mowinaaghmdegesQulebi = new ArrayList<>();
 
@@ -37,11 +37,11 @@ public class RaundisQulisGamomtvleli {
         }
 
         if (mokoziresKrugebi.size() == 8) {
-            return kapo(mokozireGundi, mowinaaghmdegeGundi, kombinaciisShedegi);
+            return kapo(mokozireGundi, mowinaaghmdegeGundi, kombinaciisShedegi, belotisMayurebeli);
         }
 
         if (mowinaaghmdegesQulebi.size() == 8) {
-            return kapo(mowinaaghmdegeGundi, mokozireGundi, kombinaciisShedegi);
+            return kapo(mowinaaghmdegeGundi, mokozireGundi, kombinaciisShedegi, belotisMayurebeli);
         }
 
 
@@ -70,16 +70,25 @@ public class RaundisQulisGamomtvleli {
             }
         }
 
+        if (belotisMayurebeli.belotRebelotiArisNatamashebi()) {
+            Motamashe belotiVisacYavs = belotisMayurebeli.belotiVisacYavs();
+            if (mokozireGundi.sheicavs(belotiVisacYavs)) {
+                mokozireGundisKombinaciisQulebi += belotisMayurebeli.belotisQula();
+            } else {
+                mowinaaghmdegeGundisKombinaciisQulebi += belotisMayurebeli.belotisQula();
+            }
+        }
+
         int mokozirisQulebisJami = mokozireGundisQulebi + mokozireGundisKombinaciisQulebi;
         int mowinaaghmdegisQulebisJami = mowinaaghmdegisQulebi + mowinaaghmdegeGundisKombinaciisQulebi;
 
 
-        if (mokozirisQulebisJami <= mowinaaghmdegisQulebisJami) {
-            return chavarda(kombinaciisShedegi);
+        if (mokozirisQulebisJami < mowinaaghmdegisQulebisJami) {
+            return chavarda(kombinaciisShedegi, belotisMayurebeli);
         }
 
-        if (mokozirisQulebisJami == 81 && mowinaaghmdegisQulebisJami == 81) {
-            return RaundisShedegi.fre();
+        if (mokozirisQulebisJami == mowinaaghmdegisQulebisJami) {
+            return RaundisShedegi.fre(mowinaaghmdegisQulebisJami);
         }
 
         return RaundisShedegi.chveulebrivi(
@@ -98,19 +107,34 @@ public class RaundisQulisGamomtvleli {
         }
     }
 
-    private RaundisShedegi chavarda(KombinaciisShedegi kombinaciisShedegi) {
+    private RaundisShedegi chavarda(KombinaciisShedegi kombinaciisShedegi, BelotisMayurebeli belotisMayurebeli) {
         int mowinaaghmdegeGundisQula = 160;
         if (kombinaciisShedegi != null && kombinaciisShedegi.gundi() == mokozireGundi) {
             mowinaaghmdegeGundisQula += kombinaciisShedegi.qula();
         }
+
+        if (belotisMayurebeli.belotRebelotiArisNatamashebi()) {
+            Motamashe belotiVisacYavs = belotisMayurebeli.belotiVisacYavs();
+            if (mokozireGundi.sheicavs(belotiVisacYavs)) {
+                mowinaaghmdegeGundisQula += belotisMayurebeli.belotisQula();
+            }
+        }
         return RaundisShedegi.chavardna(mowinaaghmdegeGundisQula);
     }
 
-    private RaundisShedegi kapo(Gundi vincKapoGaaketa, Gundi vincChaijva, KombinaciisShedegi kombinaciisShedegi) {
+    private RaundisShedegi kapo(Gundi vincKapoGaaketa, Gundi vincChaijva, KombinaciisShedegi kombinaciisShedegi, BelotisMayurebeli belotisMayurebeli) {
         int vincChaijvaMagisQula = 0;
         if (kombinaciisShedegi != null && kombinaciisShedegi.gundi() == vincChaijva) {
             vincChaijvaMagisQula = kombinaciisShedegi.qula();
         }
+
+        if (belotisMayurebeli.belotRebelotiArisNatamashebi()) {
+            Motamashe belotiVisacYavs = belotisMayurebeli.belotiVisacYavs();
+            if (mowinaaghmdegeGundi.sheicavs(belotiVisacYavs)) {
+                vincChaijvaMagisQula += belotisMayurebeli.belotisQula();
+            }
+        }
+
         return RaundisShedegi.kapo(vincChaijvaMagisQula);
     }
 

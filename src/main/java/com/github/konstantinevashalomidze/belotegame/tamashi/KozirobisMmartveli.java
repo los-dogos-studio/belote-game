@@ -2,6 +2,8 @@ package com.github.konstantinevashalomidze.belotegame.tamashi;
 
 import java.util.List;
 
+import static com.github.konstantinevashalomidze.belotegame.tamashi.Ranki.VALETI;
+
 public class KozirobisMmartveli {
 
     private final List<Motamashe> motamasheebi;
@@ -14,11 +16,11 @@ public class KozirobisMmartveli {
 
 
     public void sheamowmeAmotrialebuliKartiValetze() {
-        Motamashe pirveliMotamashe = motamasheebi.get((kozirobisMdgomareoba.kartisDamrigebelisPozicia() + 1) % 4);
         Karti amotrialebuliKarti = kozirobisMdgomareoba.amotrialebuliKarti();
-        boolean valetia = pirveliMotamashe.xeli().kartebi().stream()
-                .anyMatch(k -> k.cveti() == amotrialebuliKarti.cveti() && k.ranki() == Ranki.VALETI);
-        if (valetia) kozirobisMdgomareoba.ikozira(pirveliMotamashe, amotrialebuliKarti.cveti());
+        if (amotrialebuliKarti.ranki() == VALETI) {
+            Motamashe pirveliMotamashe = motamasheebi.get((kozirobisMdgomareoba.kartisDamrigebelisPozicia() + 1) % 4);
+            kozirobisMdgomareoba.ikozira(pirveliMotamashe, amotrialebuliKarti.cveti());
+        }
     }
 
 
