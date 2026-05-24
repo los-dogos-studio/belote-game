@@ -61,7 +61,7 @@ public class TamashisSesia {
     }
 
     public boolean mzadaa() {
-        return zedmetsaxeliDaMotamashisPozicia.size() == 4;
+        return zedmetsaxeliDaRomelGundshia.size() == 4;
     }
 
     public void daimate(String zedmetsaxeli, String gundi) {

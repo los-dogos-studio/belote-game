@@ -31,7 +31,10 @@ public class TamashisMdgomareobisGadamaketebeli {
 
         String mimdinareMotamashisZedmetsaxeli = motamashisPoziciaDaZedmetsaxeli.get(raundi.mimdinareMotamashisPozicia());
 
-        int momtxovnisPozica = zedmetsaxeliDaMotamashisPozicia.get(zedmetsaxeli);
+        Integer momtxovnisPozica = zedmetsaxeliDaMotamashisPozicia.get(zedmetsaxeli);
+        if (momtxovnisPozica == null) {
+            throw new IllegalArgumentException("მოთამაშე ვერ მოიძებნა");
+        }
         Motamashe momtxovniMotamashe = tamashi.motamasheebi().get(momtxovnisPozica);
         List<KartisPasuxi> momtxovnisXeli = momtxovniMotamashe.xeli().kartebi().stream()
                 .map(k -> new KartisPasuxi(k.cveti().name(), k.ranki().name()))
