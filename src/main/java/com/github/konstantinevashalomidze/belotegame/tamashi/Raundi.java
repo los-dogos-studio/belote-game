@@ -94,14 +94,10 @@ public class Raundi {
         mokozire = kozirobisMdgomareoba.mokozire();
         kartisDamrigebeli.meoredDaarige(darcheniliDasta, mokozire, kozirobisMdgomareoba.amotrialebuliKarti());
 
-        KombinaciisMmartveli mmartveli = new KombinaciisMmartveli(koziriCveti);
-        kombinaciisShedegi = mmartveli.visiKombinaciaGadis(mokozireGundi, mowinaaghmdegeGundi);
-
         belotisMayurebeli = new BelotisMayurebeli(koziriCveti);
 
-        raundisFaza = KRUGEBI;
+        raundisFaza = KOMBINACIIS_DEKLARACIA;
         mimdinareMotamashisPozicia = (kartisDamrigeblisPozicia + 1) % 4;
-        axaliKrugisDawyeba();
     }
 
     private void axaliKrugisDawyeba() {
