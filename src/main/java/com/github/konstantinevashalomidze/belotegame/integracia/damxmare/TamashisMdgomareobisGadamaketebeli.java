@@ -45,8 +45,13 @@ public class TamashisMdgomareobisGadamaketebeli {
                     "_" + raundi.kozirobisMdgomareoba().amotrialebuliKarti().ranki().name();
         }
 
-        if (raundi.raundisFaza() == KRUGEBI || raundi.raundisFaza() == QULEBIS_DATVLA
+        if (raundi.raundisFaza() == KRUGEBI
+        || raundi.raundisFaza() == QULEBIS_DATVLA
         || raundi.raundisFaza() == KOMBINACIIS_DEKLARACIA) {
+            koziriCveti = raundi.koziriCveti().name();
+        }
+
+        if (raundi.raundisFaza() == KRUGEBI || raundi.raundisFaza() == QULEBIS_DATVLA) {
             koziriCveti = raundi.koziriCveti().name();
             mimdinareKrugi = raundi.mimdinareKrugi().natamashebiKartebi().stream()
                     .map(nk -> new NatamashebiKartisPasuxi(
