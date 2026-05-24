@@ -116,4 +116,10 @@ public class Tamashi {
     public int gayinuliQula() {
         return gayinuliQula;
     }
+
+    public KozirobisMdgomareoba kozirobisMdgomareoba() {
+        return mimdinareRaundi.kozirobisMdgomareoba();
+    }
+
+
 }

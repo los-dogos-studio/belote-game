@@ -61,13 +61,15 @@ public class TamashisKontroleri {
     @PostMapping("/{otaxisId}/koziroba/pirvelshi")
     public ResponseEntity<?> ikoziraMotamashem(
             @PathVariable String otaxisId,
-            @RequestParam KozirobisMotxovna motxovna
+            @RequestBody KozirobisMotxovna motxovna
             ) {
         try {
             TamashisSesia sesia = mexsiereba.sesia(otaxisId);
             Motamashe motamashe = sesia.motamashisPozicia(motxovna.zedmetsaxeli());
             sesia.tamashi().mimdinareRaundi().motamashemWaighoPirvelive(motamashe);
-            sesia.tamashi().kozirobisDasrulebistanave();
+            if (sesia.tamashi().kozirobisMdgomareoba().dasrulebulia()) {
+                sesia.tamashi().kozirobisDasrulebistanave();
+            }
             return ResponseEntity.ok(gadamaketebeli.gadaaketePasxuad(sesia, motxovna.zedmetsaxeli()));
         } catch (IllegalArgumentException | IllegalStateException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -99,13 +101,31 @@ public class TamashisKontroleri {
             Motamashe motamashe= sesia.motamashisPozicia(motxovna.zedmetsaxeli());
             Cveti rashicIkozira = Cveti.valueOf(motxovna.cveti());
             sesia.tamashi().mimdinareRaundi().motamashemAcxadaMeoreshi(motamashe, rashicIkozira);
-            sesia.tamashi().kozirobisDasrulebistanave();
+            if (sesia.tamashi().kozirobisMdgomareoba().dasrulebulia()) {
+                sesia.tamashi().kozirobisDasrulebistanave();
+            }
             return ResponseEntity.ok(gadamaketebeli.gadaaketePasxuad(sesia, motxovna.zedmetsaxeli()));
         } catch (IllegalArgumentException | IllegalStateException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
+
+    @PostMapping("/{otaxisId}/koziroba/vinujdeni")
+    public ResponseEntity<?> kartisDamrigebelmaVinujdenshiIkozira(
+            @PathVariable String otaxisId,
+            @RequestBody KozirisCxadebisMotxovna motxovna
+    ) {
+        try {
+            TamashisSesia sesia = mexsiereba.sesia(otaxisId);
+            Cveti cveti = Cveti.valueOf(motxovna.cveti());
+            sesia.tamashi().mimdinareRaundi().motamashemVinujdenshiWaigho(cveti);
+            sesia.tamashi().kozirobisDasrulebistanave();
+            return ResponseEntity.ok(gadamaketebeli.gadaaketePasxuad(sesia, motxovna.zedmetsaxeli()));
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     @PostMapping("/{otaxisId}/kartis-chamosvla")
     public ResponseEntity<?> motamashemChamovidaKarti(

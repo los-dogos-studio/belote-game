@@ -7,6 +7,7 @@ import com.github.konstantinevashalomidze.belotegame.integracia.rr.NatamashebiKa
 import com.github.konstantinevashalomidze.belotegame.integracia.rr.QulisPasuxi;
 import com.github.konstantinevashalomidze.belotegame.integracia.rr.TamashisMdgomareobisPasuxi;
 import com.github.konstantinevashalomidze.belotegame.tamashi.*;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import static com.github.konstantinevashalomidze.belotegame.integracia.TamashisS
 import static com.github.konstantinevashalomidze.belotegame.integracia.TamashisSesiisStatusi.LODINI;
 import static com.github.konstantinevashalomidze.belotegame.tamashi.RaundisFaza.*;
 
+@Component
 public class TamashisMdgomareobisGadamaketebeli {
     public TamashisMdgomareobisPasuxi gadaaketePasxuad(TamashisSesia sesia, String zedmetsaxeli) {
         if (sesia.statusi() == LODINI) {
@@ -29,7 +31,7 @@ public class TamashisMdgomareobisGadamaketebeli {
 
         String mimdinareMotamashisZedmetsaxeli = motamashisPoziciaDaZedmetsaxeli.get(raundi.mimdinareMotamashisPozicia());
 
-        int momtxovnisPozica = zedmetsaxeliDaMotamashisPozicia.get(mimdinareMotamashisZedmetsaxeli);
+        int momtxovnisPozica = zedmetsaxeliDaMotamashisPozicia.get(zedmetsaxeli);
         Motamashe momtxovniMotamashe = tamashi.motamasheebi().get(momtxovnisPozica);
         List<KartisPasuxi> momtxovnisXeli = momtxovniMotamashe.xeli().kartebi().stream()
                 .map(k -> new KartisPasuxi(k.cveti().name(), k.ranki().name()))

@@ -1,6 +1,7 @@
 package com.github.konstantinevashalomidze.belotegame.integracia;
 
 import com.github.konstantinevashalomidze.belotegame.tamashi.DastisMomwodebeli;
+import com.github.konstantinevashalomidze.belotegame.tamashi.KozirobisMdgomareoba;
 import com.github.konstantinevashalomidze.belotegame.tamashi.Motamashe;
 import com.github.konstantinevashalomidze.belotegame.tamashi.Tamashi;
 
@@ -33,6 +34,7 @@ public class TamashisSesia {
     public Tamashi tamashi() {
         return tamashi;
     }
+
 
     public TamashisSesiisStatusi statusi() {
         return statusi;
