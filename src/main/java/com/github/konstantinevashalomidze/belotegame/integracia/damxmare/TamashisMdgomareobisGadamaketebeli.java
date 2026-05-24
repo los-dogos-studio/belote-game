@@ -2,10 +2,7 @@ package com.github.konstantinevashalomidze.belotegame.integracia.damxmare;
 
 import com.github.konstantinevashalomidze.belotegame.integracia.TamashisSesia;
 import com.github.konstantinevashalomidze.belotegame.integracia.TamashisSesiisStatusi;
-import com.github.konstantinevashalomidze.belotegame.integracia.rr.KartisPasuxi;
-import com.github.konstantinevashalomidze.belotegame.integracia.rr.NatamashebiKartisPasuxi;
-import com.github.konstantinevashalomidze.belotegame.integracia.rr.QulisPasuxi;
-import com.github.konstantinevashalomidze.belotegame.integracia.rr.TamashisMdgomareobisPasuxi;
+import com.github.konstantinevashalomidze.belotegame.integracia.rr.*;
 import com.github.konstantinevashalomidze.belotegame.tamashi.*;
 import org.springframework.stereotype.Component;
 
@@ -48,7 +45,8 @@ public class TamashisMdgomareobisGadamaketebeli {
                     "_" + raundi.kozirobisMdgomareoba().amotrialebuliKarti().ranki().name();
         }
 
-        if (raundi.raundisFaza() == KRUGEBI || raundi.raundisFaza() == QULEBIS_DATVLA) {
+        if (raundi.raundisFaza() == KRUGEBI || raundi.raundisFaza() == QULEBIS_DATVLA
+        || raundi.raundisFaza() == KOMBINACIIS_DEKLARACIA) {
             koziriCveti = raundi.koziriCveti().name();
             mimdinareKrugi = raundi.mimdinareKrugi().natamashebiKartebi().stream()
                     .map(nk -> new NatamashebiKartisPasuxi(
@@ -71,6 +69,23 @@ public class TamashisMdgomareobisGadamaketebeli {
             sesia.statusi(DASRULEBULI);
         }
 
+        List<KombinaciisPasuxi> datvliliKombinaciebi = null;
+        String kombinaciisGamarjvebuliGundi = null;
+
+        if (raundi.kombinaciisShedegi() != null) {
+            KombinaciisShedegi kombinaciisShedegi = raundi.kombinaciisShedegi();
+            datvliliKombinaciebi = kombinaciisShedegi.kombinaciebi().stream()
+                    .map(k -> new KombinaciisPasuxi(
+                            k.tipi().name(),
+                            k.qula(),
+                            k.cveti() != null ? k.cveti().name() : null,
+                            k.yvelazeDidiRanki().name(),
+                            k.sigrdze()
+                    ))
+                    .toList();
+            kombinaciisGamarjvebuliGundi = kombinaciisShedegi.gundi() == tamashi.gundiA() ? "A" : "B";
+        }
+
         return new TamashisMdgomareobisPasuxi(
             sesia.otaxisId(),
             raundi.raundisFaza().name(),
@@ -80,7 +95,7 @@ public class TamashisMdgomareobisGadamaketebeli {
             koziriCveti,
             amotrialebuliKarti,
             qulebi,
-            gamarjvebuliGundi
+            gamarjvebuliGundi, datvliliKombinaciebi, kombinaciisGamarjvebuliGundi
         );
 
     }
@@ -101,6 +116,8 @@ public class TamashisMdgomareobisGadamaketebeli {
                 null,
                 null,
                 new QulisPasuxi(0, 0, 0),
+                null,
+                null,
                 null
         );
     }

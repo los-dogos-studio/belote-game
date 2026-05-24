@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static com.github.konstantinevashalomidze.belotegame.tamashi.RaundisFaza.QULEBIS_DATVLA;
 
 @RestController
@@ -157,6 +159,62 @@ public class TamashisKontroleri {
 
     }
 
+    @PostMapping("/{otaxisId}/kombinacia/cxadeba")
+    public ResponseEntity<?> motamashemAcxadaKombincia(
+            @PathVariable String otaxisId,
+            @RequestBody KombinaciisCxadebisMotxovna motxovna
+    ) {
+        try {
+            TamashisSesia sesia = mexsiereba.sesia(otaxisId);
+            Motamashe motamashe = sesia.motamashisPozicia(motxovna.zedmetsaxeli());
 
+            List<Kombinacia> kombinaciebi = motxovna.kombinaciebi().stream()
+                    .map(pasuxi -> new Kombinacia(
+                            KombinaciisTipi.valueOf(pasuxi.tipi()),
+                            0,
+                            pasuxi.cveti() != null ? Cveti.valueOf(pasuxi.cveti()) : null,
+                            Ranki.valueOf(pasuxi.umaghlesiRanki()),
+                            pasuxi.sigrdze(),
+                            motamashe
+                    ))
+                    .toList();
+            sesia.tamashi().mimdinareRaundi().motamashemAcxadaKombinacia(motamashe, kombinaciebi);
+            return ResponseEntity.ok(gadamaketebeli.gadaaketePasxuad(sesia, motxovna.zedmetsaxeli()));
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/{otaxisId}/kombinacia/mzadyofna")
+    public ResponseEntity<?> motamasheMzadyofnashia(
+            @PathVariable String otaxisId,
+            @RequestBody MzadyofnisMotxovna motxovna
+    ) {
+        try {
+            TamashisSesia sesia = mexsiereba.sesia(otaxisId);
+            Motamashe motamashe = sesia.motamashisPozicia(motxovna.zedmetsaxeli());
+            sesia.tamashi().mimdinareRaundi().motamasheMzadaa(motamashe);
+            return ResponseEntity.ok(gadamaketebeli.gadaaketePasxuad(sesia, motxovna.zedmetsaxeli()));
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
+
+    @PostMapping("/{otaxisId}/kombinacia/chveneba")
+    public ResponseEntity<?> motamashemAchvenaKombinacia(
+            @PathVariable String otaxisId,
+            @RequestBody MzadyofnisMotxovna motxovna
+    ) {
+        try {
+            TamashisSesia sesia = mexsiereba.sesia(otaxisId);
+            Motamashe motamashe = sesia.motamashisPozicia(motxovna.zedmetsaxeli());
+            sesia.tamashi().mimdinareRaundi().achveneKombinaciebi(motamashe);
+            return ResponseEntity.ok(gadamaketebeli.gadaaketePasxuad(sesia, motxovna.zedmetsaxeli()));
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
 }

@@ -1,7 +1,6 @@
 package com.github.konstantinevashalomidze.belotegame.tamashi;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static com.github.konstantinevashalomidze.belotegame.tamashi.RaundisFaza.*;
 
@@ -32,12 +31,118 @@ public class Raundi {
 
     private DastisMomwodebeli dastisMomwodebeli;
 
+    private final Map<Motamashe, List<Kombinacia>> nacxadebiKombinaciebi = new HashMap<>();
+    private final Set<Motamashe> mzadVincaaEgMotamasheebi = new HashSet<>();
+
+    private boolean maghaliKombinaciebisMqoneGundsArDaavicwydaKombinaciisChveneba = false;
+
+
     public Raundi(List<Motamashe> motamasheebi, Gundi mokozireGundi, Gundi mowinaaghmdegeGundi, int kartisDamrigeblisPozicia, DastisMomwodebeli dastisMomwodebeli) {
         this.motamasheebi = motamasheebi;
         this.mokozireGundi = mokozireGundi;
         this.mowinaaghmdegeGundi = mowinaaghmdegeGundi;
         this.kartisDamrigeblisPozicia = kartisDamrigeblisPozicia;
         this.dastisMomwodebeli = dastisMomwodebeli;
+    }
+
+    public void motamasheMzadaa(Motamashe motamashe) {
+        sheamowmeSworFazashiTua(KOMBINACIIS_DEKLARACIA);
+        mzadVincaaEgMotamasheebi.add(motamashe);
+
+        if (mzadVincaaEgMotamasheebi.size() == 4) {
+            kombinaciisShedegi = amoicaniNacxadebiKombinciebi();
+            raundisFaza = KRUGEBI;
+            axaliKrugisDawyeba();
+        }
+
+    }
+
+    private KombinaciisShedegi amoicaniNacxadebiKombinciebi() {
+        List<Kombinacia> mokozireGundisKombinaciebi = new ArrayList<>();
+        List<Kombinacia> mowinaaghmdegeGundisKombinaciebi = new ArrayList<>();
+
+        for (var entry : nacxadebiKombinaciebi.entrySet()) {
+            Motamashe motamashe = entry.getKey();
+            List<Kombinacia> kombinaciebi = entry.getValue();
+            if (mokozireGundi.sheicavs(motamashe)) {
+                mokozireGundisKombinaciebi.addAll(kombinaciebi);
+            } else {
+                mowinaaghmdegeGundisKombinaciebi.addAll(kombinaciebi);
+            }
+        }
+
+        if (mokozireGundisKombinaciebi.isEmpty() && mowinaaghmdegeGundisKombinaciebi.isEmpty()) return null;
+        if (mokozireGundisKombinaciebi.isEmpty()) return new KombinaciisShedegi(mowinaaghmdegeGundi, mowinaaghmdegeGundisKombinaciebi);
+        if (mowinaaghmdegeGundisKombinaciebi.isEmpty()) return new KombinaciisShedegi(mokozireGundi, mokozireGundisKombinaciebi);
+
+        KombinaciisShemdarebeli shemdarebeli = new KombinaciisShemdarebeli(koziriCveti);
+        Kombinacia udzlieresiA = shemdarebeli.ipoveUdzlieresiKombinacia(mokozireGundisKombinaciebi);
+        Kombinacia udzlieresiB = shemdarebeli.ipoveUdzlieresiKombinacia(mowinaaghmdegeGundisKombinaciebi);
+
+        if (shemdarebeli.metia(udzlieresiA, udzlieresiB)) {
+            return new KombinaciisShedegi(mokozireGundi, mokozireGundisKombinaciebi);
+        } else {
+            return new KombinaciisShedegi(mowinaaghmdegeGundi, mokozireGundisKombinaciebi);
+        }
+
+    }
+
+
+    public void motamashemAcxadaKombinacia(Motamashe motamashe, List<Kombinacia> kombinaciebi) {
+        sheamowmeSworFazashiTua(KOMBINACIIS_DEKLARACIA);
+
+        KombinaciisAmomcnobi amomcnobi = new KombinaciisAmomcnobi(koziriCveti);
+        List<Kombinacia> aghmocheniliKombinaciebi = amomcnobi.ipoveKombinaciebi(motamashe);
+
+        for (Kombinacia nacxadebiKombinaciebi : kombinaciebi) {
+            boolean validuri = aghmocheniliKombinaciebi.stream()
+                    .anyMatch(aghmochenili ->
+                            aghmochenili.tipi() == nacxadebiKombinaciebi.tipi() &&
+                            aghmochenili.cveti() == nacxadebiKombinaciebi.cveti() &&
+                            aghmochenili.yvelazeDidiRanki() == nacxadebiKombinaciebi.yvelazeDidiRanki() &&
+                            aghmochenili.sigrdze() == nacxadebiKombinaciebi.sigrdze());
+            if (!validuri) {
+                throw new IllegalArgumentException(
+                        "კომბინაცია არ ყავს მოთამაშეს"
+                );
+            }
+        }
+
+        nacxadebiKombinaciebi.put(motamashe, kombinaciebi);
+
+    }
+
+    public void achveneKombinaciebi(Motamashe motamashe) {
+        sheamowmeSworFazashiTua(KRUGEBI);
+
+        if (kombinaciisShedegi == null) {
+            throw new IllegalStateException("კომბინაციები არ ყავს");
+        }
+
+        int meramdeneKrugia = dasrulebuliKrugebi.size();
+
+        if (meramdeneKrugia == 1) {
+            if (!kombinaciisShedegi.gundi().sheicavs(motamashe)) {
+                throw new IllegalStateException("შენ ვერ ანახებ კომბინაციას");
+            }
+            maghaliKombinaciebisMqoneGundsArDaavicwydaKombinaciisChveneba = true;
+        } else if (meramdeneKrugia == 2 && !maghaliKombinaciebisMqoneGundsArDaavicwydaKombinaciisChveneba) {
+            Gundi dabaliKombinaciebisMqoneGundi = kombinaciisShedegi.gundi() == mokozireGundi
+                    ? mowinaaghmdegeGundi
+                    : mokozireGundi;
+            if (!dabaliKombinaciebisMqoneGundi.sheicavs(motamashe)) {
+                throw new IllegalStateException("წინა ხელზე რო დაგავიწყდა ნახუი ახლა");
+            }
+            List<Kombinacia> dabaliKombinaciisMqoneGundisKombinaciebi = nacxadebiKombinaciebi.entrySet().stream()
+                    .filter(e -> dabaliKombinaciebisMqoneGundi.sheicavs(e.getKey()))
+                    .flatMap(e -> e.getValue().stream())
+                    .toList();
+            kombinaciisShedegi = new KombinaciisShedegi(dabaliKombinaciebisMqoneGundi, dabaliKombinaciisMqoneGundisKombinaciebi);
+            maghaliKombinaciebisMqoneGundsArDaavicwydaKombinaciisChveneba = true;
+        } else {
+            throw new IllegalStateException("კომბინაციების ჩვენება აღარ მოჟნა");
+        }
+
     }
 
 
