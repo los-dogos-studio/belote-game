@@ -8,7 +8,7 @@ public class Tamashi {
     private final Gundi gundiA;
     private final Gundi gundiB;
 
-    private int kartisDamrigebelisPozicia = 3;
+    private int kartisDamrigebelisPozicia;
 
     private Raundi mimdinareRaundi;
 
@@ -18,11 +18,12 @@ public class Tamashi {
 
     private final DastisMomwodebeli dastisMomwodebeli;
 
-    public Tamashi(Motamashe m0, Motamashe m1, Motamashe m2, Motamashe m3, DastisMomwodebeli dastisMomwodebeli) {
+    public Tamashi(Motamashe m0, Motamashe m1, Motamashe m2, Motamashe m3, DastisMomwodebeli dastisMomwodebeli, int kartisDamrigebelisPozicia) {
         motamasheebi = List.of(m0, m1, m2, m3);
         gundiA = new Gundi(m0, m2);
         gundiB = new Gundi(m1, m3);
         this.dastisMomwodebeli = dastisMomwodebeli;
+        this.kartisDamrigebelisPozicia = kartisDamrigebelisPozicia;
     }
 
 

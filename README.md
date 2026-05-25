@@ -1,142 +1,344 @@
-**გურული ბელოტის სრული წესები**
+# Guruli Belote — Complete Specification
 
-**1. ზოგადი აღწერა**
-4 მოთამაშე, 2 გუნდი. პარტნიორები პირისპირ სხედან. გამოიყენება 32-კარტიანი დასტა: 7, 8, 9, 10, ვალეტი, დამა, მეფე, ტუზი. პირველი 1001 ქულამდე მისული გუნდი იგებს.
+## Game Rules
 
-**2. მოთამაშეთა განლაგება და დარიგება**
-მოთამაშეები სხედან საათის ისრის მიმართულებით პოზიციებზე 0, 1, 2, 3. პოზიცია 0 პირველი მოქმედი, პოზიცია 3 დამრიგებელია. გუნდები: პოზიცია 0 + პოზიცია 2 პირისპირ პოზიცია 1 + პოზიცია 3. დამრიგებელი იცვლება საათის ისრის მიმართულებით ყოველ რაუნდში.
+### 1. General
+4 players, 2 teams. Partners sit opposite each other. 32-card deck: 7, 8, 9, 10, Jack, Queen, King, Ace. First team to 1001 points wins.
 
-**3. პირველი დარიგება**
-დამრიგებელი ურიგებს 5 კარტს თითოეულ მოთამაშეს საათის ისრის მიმართულებით პოზიცია 0-დან დაწყებული. შემდეგ ერთი კარტი ამოტრიალდება პოტენციური კოზირის სახით.
+### 2. Seating
+Players sit clockwise at positions 0, 1, 2, 3. Position 0 is first to act, position 3 is dealer. Teams: position 0 + position 2 vs position 1 + position 3. Dealer rotates clockwise each round.
 
-**4. კოზირის განსაზღვრა**
+### 3. Dealing — Stage 1
+Dealer gives 5 cards to each player clockwise starting from position 0. One card is flipped face up as potential trump.
 
-**4.1 ვალეტის წესი**
-თუ ამოტრიალებული კარტი ვალეტია, ამ ფერის კოზირი ავტომატურად დგება და პირველი მოთამაშე (პოზიცია 0) ხდება მკოზირებელი. ვაჭრობა გამოიტოვება.
+### 4. Trump Determination
 
-**4.2 პირველი კრუგი**
-თუ ვალეტის წესი არ დადგა, პოზიცია 0-დან დაწყებული თითოეული მოთამაშე ან იღებს ამოტრიალებული კარტის ფერს კოზირად ან პასს აძლევს.
+**Jack rule:** If the flipped card itself is a Jack, that suit automatically becomes trump. First player (position 0) becomes declarer. Bidding is skipped.
 
-**4.3 მეორე კრუგი**
-თუ პირველ კრუგში ყველამ გაიარა, თითოეულ მოთამაშეს შეუძლია დაასახელოს ნებისმიერი ფერი კოზირად გარდა ამოტრიალებული კარტის ფერისა, ან პასი მისცეს.
+**Round 1:** Starting from position 0, each player either accepts the flipped suit as trump or passes.
 
-**4.4 დამრიგებლის ვალდებულება**
-თუ მეორე კრუგშიც ყველამ გაიარა, დამრიგებელი ვალდებულია დაასახელოს ფერი და გახდეს მკოზირებელი.
+**Round 2:** If everyone passed in round 1, each player may name any suit except the flipped suit, or pass.
 
-**5. მეორე დარიგება**
-ამოტრიალებული კარტი ყოველთვის მიეცემა მკოზირებელს იმის მიუხედავად თუ რომელ კრუგში დადგა კოზირი. შემდეგ დარჩენილი კარტები ნაწილდება პოზიცია 0-დან საათის ისრის მიმართულებით — არამკოზირებელ მოთამაშეებს 3-3 კარტი, მკოზირებელს 2 კარტი. საბოლოოდ ყველას აქვს 8 კარტი.
+**Dealer obligation:** If everyone passes in round 2, dealer must name a suit and become declarer.
 
-**6. კომბინაციები**
-კომბინაციები უნდა გამოცხადდეს და აჩვენონ მე-2 ხელზე. თუ მოთამაშეს დაავიწყდა გამოცხადება, მოწინააღმდეგეს შეუძლია გააპროტესტოს და კომბინაცია აღარ ჩაითვლება.
+### 5. Dealing — Stage 2
+Flipped card always goes to declarer. Then deal remaining cards clockwise from position 0 — 3 cards to each non-declarer, 2 to declarer. Everyone ends with 8 cards.
 
-**6.1 ბელოტი**
-კოზირის მეფე + კოზირის დამა = ბელოტი = 20 ქულა. გამოცხადდება თამაშის დროს — პირველ კარტზე ამბობს „ბელოტი", მეორეზე „რებელოტი". შეიძლება გამოცხადდეს ნებისმიერ ხელზე. თუ დაავიწყდა — არ ითვლება.
+### 6. Combo Declaration Phase
+After second deal, before tricks start, there is a 30 second declaration window (timer runs on frontend only). During this window:
+- Players who have combos manually select and declare them
+- Server validates declared combos actually exist in their hand
+- Players press "ready" when done (with or without declaring)
+- When all 4 press ready, server compares teams' declared combos and determines winning team
+- Trick taking begins
 
-**6.2 მიმდევრობა**
-ერთსა და იმავე ფერში ზედიზედ კარტები:
-- 3 კარტი = 20 ქულა
-- 4 კარტი = 50 ქულა
-- 5 კარტი = 100 ქულა
+### 7. Combos
 
-ერთ ხელში შეიძლება იყოს რამდენიმე მიმდევრობა — ჯერ პოულობს ყველაზე გრძელს, შემდეგ დარჩენილი კარტებიდან შემდეგს. ტუზი 7-ის წინ ვერ დადგება.
+**Belote:** Trump King + Trump Queen = 20 points. Announced during play — say "belote" when playing first card, "rebelote" when playing second. Any trick. If forgotten, doesn't count.
 
-**6.3 ოთხი ერთნაირი**
-- ოთხი ვალეტი = 200
-- ოთხი 9 = 150
-- ოთხი 10, დამა, მეფე ან ტუზი = 100
-- ოთხი 7 ან 8 = 0, არ ითვლება
+**Sequences:** Consecutive cards of same suit:
+- 3 cards = 20 points
+- 4 cards = 50 points
+- 5 cards = 100 points
 
-ოთხი ერთნაირი პრიორიტეტულია მიმდევრობაზე — ოთხი ერთნაირში გამოყენებული კარტები მიმდევრობაში ვერ მოხვდება.
+Multiple sequences allowed in one hand — longest found first, then from remaining cards. Ace cannot wrap before 7. Four of a kind takes priority — cards used in four of a kind cannot form sequences.
 
-**7. კომბინაციების შედარება**
-ითვლება მხოლოდ ერთი გუნდის კომბინაციები — უფრო ძლიერი კომბინაციის მქონე გუნდისა. შედარება:
+**Four of a kind:**
+- Four Jacks = 200
+- Four 9s = 150
+- Four 10s/Queens/Kings/Aces = 100
+- Four 7s or 8s = 0, don't count
 
-ერთნაირი სიგრძის მიმდევრობებისთვის:
-1. უფრო მაღალი ბოლო კარტი იმარჯვებს
-2. თუ ბოლო კარტი ტოლია — კოზირის ფერი იმარჯვებს
-3. თუ კვლავ ტოლია — საათის ისრის მიმართულებით პირველი მოთამაშე იმარჯვებს
+### 8. Combo Comparison
+Only one team's combos count — the stronger team's. Comparison rules:
 
-ოთხი ერთნაირი VS 5-კარტიანი მიმდევრობა:
-- თუ 5-კარტიანი მიმდევრობა კოზირშია → მიმდევრობა იმარჯვებს
-- სხვა შემთხვევაში → საათის ისრის მიმართულებით პირველი მოთამაშე იმარჯვებს
+Same length sequences:
+1. Higher top card wins
+2. Equal top card → trump suit wins
+3. Still tied → earlier clockwise position wins
 
-ოთხი ერთნაირი VS ოთხი ერთნაირი:
-- მეტი ქულა იმარჯვებს
-- ტოლი ქულის შემთხვევაში → საათის ისრის მიმართულებით პირველი მოთამაშე იმარჯვებს
+Four of a kind vs 5-card sequence:
+- Trump 5-card sequence wins
+- Otherwise → earlier clockwise position wins
 
-გამარჯვებული გუნდის ყველა კომბინაცია ითვლება ორივე მოთამაშისგან. წამგებელი გუნდი ვერაფერს იღებს.
+Four of a kind vs four of a kind:
+- Higher points wins
+- Equal → earlier clockwise position wins
 
-**8. კარტების ძალა**
+Winning team gets ALL their combos counted across both players.
 
-კოზირზე (ძლიერიდან სუსტამდე):
-ვალეტი → 9 → ტუზი → 10 → მეფე → დამა → 8 → 7
+### 9. Showing Combos
+**Only declared combos that are actually shown count for scoring.**
 
-არაკოზირზე (ძლიერიდან სუსტამდე):
-ტუზი → 10 → მეფე → დამა → ვალეტი → 9 → 8 → 7
+- On trick 2: winning team must show their combos
+- If winning team doesn't show on trick 2: losing team can show theirs on trick 3
+- If at least one player from winning team shows on trick 2, whole team's combos count // MARK
+- If nobody shows: no combos count
 
-**9. კარტების ქულები**
+### 10. Card Power
 
-კოზირზე:
-- ვალეტი = 20
-- 9 = 14
-- ტუზი = 11
-- 10 = 10
-- მეფე = 4
-- დამა = 3
-- 8, 7 = 0
+Trump (strongest to weakest):
+Jack → 9 → Ace → 10 → King → Queen → 8 → 7
 
-არაკოზირზე:
-- ტუზი = 11
-- 10 = 10
-- მეფე = 4
-- დამა = 3
-- ვალეტი = 2
-- 9, 8, 7 = 0
+Non-trump (strongest to weakest):
+Ace → 10 → King → Queen → Jack → 9 → 8 → 7
 
-**10. სვლის წესები**
+### 11. Card Points
 
-10.1 პირველი სვლა: პოზიცია 0 იწყებს პირველ ხელს.
+Trump: Jack=20, 9=14, Ace=11, 10=10, King=4, Queen=3, 8=0, 7=0
 
-10.2 ფერის აყოლა სავალდებულოა: თუ გახსნილი ფერის კარტი გაქვს, აუცილებლად უნდა ჩამოხვიდე იმავე ფერში.
+Non-trump: Ace=11, 10=10, King=4, Queen=3, Jack=2, 9=0, 8=0, 7=0
 
-10.3 გაჭრა სავალდებულოა: თუ გახსნილი ფერი არ გაქვს, კოზირით უნდა გაჭრა თუ შეგიძლია.
+### 12. Play Rules
+- Follow suit mandatory — if you have led suit you must play it
+- Cut with trump mandatory — if no led suit, must play trump if you have it
+- Overtrump mandatory — if trick already cut, must play higher trump than strongest on table if possible
+- All rules apply when trump is led too
 
-10.4 მაღალი კოზირის დადება: თუ ხელი უკვე კოზირით არის გაჭრილი და კოზირი გაქვს, კოზირი უნდა დადო რომელიც მაგიდაზე არსებულ ყველაზე ძლიერ კოზირზე მაღალია თუ შეგიძლია. თუ მაღალი კოზირი არ გაქვს, ნებისმიერი კოზირი შეგიძლია დადო.
+### 13. Winning a Trick
+- Not cut: highest card of led suit wins
+- Cut: highest trump wins
+- Winner leads next trick
 
-10.5 როცა კოზირი გაიხსნება, მაღალი კოზირის დადების ვალდებულება მაინც მოქმედებს.
+### 14. Scoring
+Total card points per round = 162 (including 10 point bonus for last trick). Add combo points to winning combo team.
 
-**11. ხელის მოგება**
-- თუ ხელი არ გაჭრილა: გახსნილი ფერის ყველაზე ძლიერი კარტი იგებს
-- თუ ხელი გაჭრილია: ყველაზე ძლიერი კოზირი იგებს
-- წინა ხელის გამარჯვებული იწყებს შემდეგ ხელს
+Rounding: remainder ≤5 → round down, remainder >5 → round up (exactly 5 rounds down).
 
-**12. ქულების დათვლა**
-ერთ რაუნდში სულ 162 ქულაა (ბოლო ხელის 10 ქულის ჩათვლით).
+**Fall:** If declarer team does not strictly beat opponents (tie = fall):
+- Declarer gets −50
+- Opponents get 160
+- Declarer's combos transfer to opponents
 
-დაამატე კომბინაციების ქულები გამარჯვებული გუნდისთვის.
+**Capo:** One team takes all 8 tricks:
+- Capo team gets 250
+- Other team gets only their own combo points
 
-დამრგვალება:
-- ნაშთი 5-ზე ნაკლები → ქვემოთ
-- ნაშთი ზუსტად 5 → ქვემოთ
-- ნაშთი 5-ზე მეტი → ზემოთ
+**Tie:** Both teams equal points:
+- Non-declaring team gets half immediately
+- Remaining points frozen, carry to next round
+- Next round winner claims frozen points too
 
-**13. ჩავარდნა**
-თუ მკოზირებელი გუნდი მოწინააღმდეგეს მკაცრად არ სჯობს (ტოლი ჩავარდნად ითვლება):
-- მკოზირებელ გუნდს ეწერება −50
-- მოწინააღმდეგეს ეწერება 160
-- მკოზირებელი გუნდის კომბინაციები მოწინააღმდეგეს გადაეწერება
+### 15. Game End
+First team to 1001 points wins.
 
-**14. კაპო**
-თუ ერთი გუნდი ყველა 8 ხელს წაიყვანს:
-- კაპოს გუნდი იღებს 250 ქულას
-- მეორე გუნდს ეთვლება მხოლოდ საკუთარი კომბინაციების ქულები თუ ჰქონდა
+---
 
-**15. თანაბარი ქულა**
-თუ ორივე გუნდი თანაბარ ქულას დააგროვებს:
-- არამკოზირებელი გუნდი იღებს ქულების ნახევარს მაშინვე
-- დარჩენილი ქულები იყინება და გადადის შემდეგ რაუნდზე
-- შემდეგ რაუნდში გამარჯვებული გუნდი გაყინულ ქულებსაც მიიღებს ჩვეულებრივ ქულებთან ერთად
+# API Specification
 
-**16. თამაშის დასრულება**
-თამაში გრძელდება მანამ სანამ ერთ-ერთი გუნდი არ დააგროვებს 1001 ქულას.
+## Base URL
+`/api/tamashi`
+
+## Enums
+
+**Cveti (Suit):** `GULI, WKENTI, JVARI, YVAVI`
+
+**Ranki (Rank):** `SHVIDI, RVA, CXRA, ATI, VALETI, DAMA, KAROLI, TUZI`
+
+**RaundisFaza (Round Phase):** `KARTIS_DARIGEBA, KOZIROBA, KOMBINACIIS_DEKLARACIA, KRUGEBI, QULEBIS_DATVLA`
+
+**KombinaciisTipi (Combo Type):** `BELOTI, MIYOLEBA, ERTNAIREBI`
+
+**BelotisCxadeba (Belote Announcement):** `ARAA_NACXADEBI, BELOTIA_NACXADEBI, REBELOTIA_NACXADEBI`
+
+---
+
+## Endpoints
+
+### Create Game
+`POST /api/tamashi/sheqmeni`
+
+Request:
+```json
+{ "zedmetsaxeli": "giorgi" }
+```
+
+Response:
+```json
+{ "otaxisId": "1234" }
+```
+
+---
+
+### Join Game
+`POST /api/tamashi/shesvla`
+
+Request:
+```json
+{ "zedmetsaxeli": "luka", "otaxisId": "1234", "gundi": "A" }
+```
+
+Response: `200 OK` (empty) or error string
+
+---
+
+### Get State
+`GET /api/tamashi/{otaxisId}/mdgomareoba?zedmetsaxeli=giorgi`
+
+Response:
+```json
+{
+  "otaxisId": "1234",
+  "faza": "KOZIROBA",
+  "mimdinareMotamashisZedmetsaxeli": "giorgi",
+  "sheniKartebi": [
+    { "cveti": "GULI", "ranki": "TUZI" }
+  ],
+  "mimdinareKrugi": [
+    { "zedmetsaxeli": "giorgi", "cveti": "GULI", "ranki": "TUZI" }
+  ],
+  "koziriCveti": "GULI",
+  "amotrialebuliKarti": "GULI_CXRA",
+  "qula": {
+    "gundiAQula": 0,
+    "gundiBQula": 0,
+    "gayinuliQula": 0
+  },
+  "gamarjvebuliGundi": null,
+  "kombinaciebRomblebicChaitvala": [
+    { "tipi": "MIYOLEBA", "qula": 20, "cveti": "GULI", "umaghlesiRanki": "TUZI", "sigrdze": 3 }
+  ],
+  "romeliGundisKombinaciebiGadis": "A",
+  "motamasheebi": [
+    { "zedmetsaxeli": "giorgi", "gundi": "A" }
+  ]
+}
+```
+
+Notes:
+- `sheniKartebi` — only requesting player's cards
+- `mimdinareKrugi` — null during KOZIROBA and KOMBINACIIS_DEKLARACIA
+- `koziriCveti` — available from KOMBINACIIS_DEKLARACIA onwards
+- `amotrialebuliKarti` — only during KOZIROBA, format "CVETI_RANKI"
+- `motamasheebi` — only populated during LODINI phase
+- `kombinaciebRomblebicChaitvala` — null if no combos
+- `romeliGundisKombinaciebiGadis` — "A" or "B" or null
+
+---
+
+### Bid — Accept in Round 1
+`POST /api/tamashi/{otaxisId}/koziroba/pirvelshi`
+
+Request:
+```json
+{ "zedmetsaxeli": "giorgi" }
+```
+
+---
+
+### Bid — Pass
+`POST /api/tamashi/{otaxisId}/koziroba/pasi`
+
+Request:
+```json
+{ "zedmetsaxeli": "giorgi" }
+```
+
+---
+
+### Bid — Name Trump in Round 2
+`POST /api/tamashi/{otaxisId}/koziroba/meoreshi`
+
+Request:
+```json
+{ "zedmetsaxeli": "giorgi", "cveti": "GULI" }
+```
+
+---
+
+### Bid — Dealer Forced
+`POST /api/tamashi/{otaxisId}/koziroba/vinujdeni`
+
+Request:
+```json
+{ "zedmetsaxeli": "giorgi", "cveti": "GULI" }
+```
+
+---
+
+### Declare Combos
+`POST /api/tamashi/{otaxisId}/kombinacia/cxadeba`
+
+Request:
+```json
+{
+  "zedmetsaxeli": "giorgi",
+  "kombinaciebi": [
+    { "tipi": "MIYOLEBA", "cveti": "GULI", "umaghlesiRanki": "TUZI", "sigrdze": 3 },
+    { "tipi": "ERTNAIREBI", "cveti": null, "umaghlesiRanki": "VALETI", "sigrdze": 4 }
+  ]
+}
+```
+
+Notes:
+- `cveti` is null for four of a kind
+- Server validates combos exist in player's hand
+
+---
+
+### Ready (Done Declaring)
+`POST /api/tamashi/{otaxisId}/kombinacia/mzadyofna`
+
+Request:
+```json
+{ "zedmetsaxeli": "giorgi" }
+```
+
+Notes:
+- Must be called after declaring (or without declaring if nothing to declare)
+- When all 4 players ready, phase transitions to KRUGEBI
+
+---
+
+### Show Combos
+`POST /api/tamashi/{otaxisId}/kombinacia/chveneba`
+
+Request:
+```json
+{ "zedmetsaxeli": "giorgi" }
+```
+
+Notes:
+- Only valid on trick 2 (winning team) or trick 3 (losing team if winning team forgot)
+- Only shown combos count for scoring
+
+---
+
+### Play Card
+`POST /api/tamashi/{otaxisId}/kartis-chamosvla`
+
+Request:
+```json
+{
+  "zedmetsaxeli": "giorgi",
+  "cveti": "GULI",
+  "ranki": "TUZI",
+  "belotisCxadeba": "ARAA_NACXADEBI"
+}
+```
+
+Notes:
+- `belotisCxadeba` options: `ARAA_NACXADEBI`, `BELOTIA_NACXADEBI`, `REBELOTIA_NACXADEBI`
+- Player must remember to announce belote themselves — no prompting
+- Server validates legal moves
+
+---
+
+## Game Flow
+
+```
+Create game → Join (3 more players) → 
+KOZIROBA (bidding) → 
+KOMBINACIIS_DEKLARACIA (30s frontend timer, declare + ready) → 
+KRUGEBI (8 tricks) → 
+QULEBIS_DATVLA (auto-scored, new round starts or game over)
+```
+
+## Frontend Notes
+- Poll `GET /mdgomareoba` every 2 seconds
+- Save `zedmetsaxeli` and `otaxisId` to localStorage for reconnection
+- 30 second combo declaration timer runs on frontend only
+- Belote announcement is player's responsibility — no prompting
+- Each player only sees their own cards (`sheniKartebi`)
+- Cards displayed using suit symbols: GULI=♥ WKENTI=♠ JVARI=♣ YVAVI=♦
 

@@ -13,6 +13,7 @@ public record TamashisMdgomareobisPasuxi(
         QulisPasuxi qula,
         String gamarjvebuliGundi,
         List<KombinaciisPasuxi> kombinaciebRomblebicChaitvala,
-        String romeliGundisKombinaciebiGadis
+        String romeliGundisKombinaciebiGadis,
+        List<MotamashePasuxi> motamasheebi
 ) {
 }

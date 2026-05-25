@@ -1,9 +1,6 @@
 package com.github.konstantinevashalomidze.belotegame.integracia;
 
-import com.github.konstantinevashalomidze.belotegame.tamashi.DastisMomwodebeli;
-import com.github.konstantinevashalomidze.belotegame.tamashi.KozirobisMdgomareoba;
-import com.github.konstantinevashalomidze.belotegame.tamashi.Motamashe;
-import com.github.konstantinevashalomidze.belotegame.tamashi.Tamashi;
+import com.github.konstantinevashalomidze.belotegame.tamashi.*;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -71,7 +68,6 @@ public class TamashisSesia {
         zedmetsaxeliDaRomelGundshia.put(zedmetsaxeli, gundi);
     }
 
-
     public void daiwyeTamashi(DastisMomwodebeli dastisMomwodebeli) {
         if (!mzadaa()) {
             throw new IllegalStateException("ოთხივე მოთამაშე მზად უნდა იყვეს");
@@ -102,7 +98,7 @@ public class TamashisSesia {
 
         int kartisDamrigebeli = (int) (Math.random() * 4);
 
-        tamashi = new Tamashi(m0, m1, m2, m3, dastisMomwodebeli);
+        tamashi = new Tamashi(m0, m1, m2, m3, dastisMomwodebeli, kartisDamrigebeli);
         statusi = TAMASHI;
         tamashi.daiwyeRaundi();
 
@@ -115,6 +111,10 @@ public class TamashisSesia {
         }
 
         return tamashi.motamasheebi().get(pozicia);
+    }
+
+    public Map<String, String> zedmetsaxeliDaRomelGundshia() {
+        return zedmetsaxeliDaRomelGundshia;
     }
 
 }

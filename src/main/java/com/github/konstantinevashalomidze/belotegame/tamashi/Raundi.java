@@ -244,7 +244,6 @@ public class Raundi {
         }
     }
 
-
     public RaundisShedegi qula() {
         sheamowmeSworFazashiTua(QULEBIS_DATVLA);
         RaundisQulisGamomtvleli raundisQulisGamomtvleli = new RaundisQulisGamomtvleli(koziriCveti, mokozireGundi, mowinaaghmdegeGundi);

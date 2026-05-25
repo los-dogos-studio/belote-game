@@ -100,7 +100,8 @@ public class TamashisMdgomareobisGadamaketebeli {
             koziriCveti,
             amotrialebuliKarti,
             qulebi,
-            gamarjvebuliGundi, datvliliKombinaciebi, kombinaciisGamarjvebuliGundi
+            gamarjvebuliGundi, datvliliKombinaciebi, kombinaciisGamarjvebuliGundi,
+null
         );
 
     }
@@ -112,6 +113,10 @@ public class TamashisMdgomareobisGadamaketebeli {
     }
 
     private TamashisMdgomareobisPasuxi lodinisPasuxi(TamashisSesia sesia) {
+        List<MotamashePasuxi> motamasheebi = sesia.zedmetsaxeliDaRomelGundshia().entrySet().stream()
+                .map(e -> new MotamashePasuxi(e.getKey(), e.getValue()))
+                .toList();
+
         return new TamashisMdgomareobisPasuxi(
                 sesia.otaxisId(),
                 LODINI.name(),
@@ -123,7 +128,8 @@ public class TamashisMdgomareobisGadamaketebeli {
                 new QulisPasuxi(0, 0, 0),
                 null,
                 null,
-                null
+                null,
+                motamasheebi
         );
     }
 
