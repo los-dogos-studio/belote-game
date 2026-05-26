@@ -116,6 +116,14 @@ function renderBidding(state) {
     document.getElementById('flipped-card').textContent = formatCard(cveti, ranki);
   }
 
+  const hand = document.getElementById('bidding-hand');
+  if (hand) {
+    hand.innerHTML = '';
+    (state.sheniKartebi || []).forEach(card => {
+      hand.appendChild(createCardEl(card.cveti, card.ranki));
+    });
+  }
+
   const actions = document.getElementById('bidding-actions');
   actions.innerHTML = '';
 
