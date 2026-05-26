@@ -30,8 +30,7 @@ otaxisSheqmnisGhilaki.addEventListener('click', async (e) => {
             erorisSpani.textContent = 'სერვერის პასუხი არ შეიცავს ოთახის ID-ს';
         }
     } catch (err) {
-        erorisSpani.textContent = 'ქსელის შეცდომა, გთხოვთ სცადეთ თავიდან';
-        console.error(err);
+        erorisSpani.textContent = 'ქსელის შეცდომა სცადეთ თავიდან';
     }
 
 

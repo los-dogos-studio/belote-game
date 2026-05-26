@@ -29,7 +29,7 @@ async function sheamowmeMdgomareoba() {
         }
 
     } catch (err) {
-        erorisSpani.textContent = 'ქსელის შეცდომა: ' + err.message;
+        erorisSpani.textContent = 'ქსელის შეცდომა სცადეთ თავიდან';
     }
 }
 
