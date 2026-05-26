@@ -95,6 +95,10 @@ public class TamashisMdgomareobisGadamaketebeli {
             kombinaciisGamarjvebuliGundi = kombinaciisShedegi.gundi() == tamashi.gundiA() ? "A" : "B";
         }
 
+        List<MotamashePasuxi> motamasheebi = sesia.zedmetsaxeliDaRomelGundshia().entrySet().stream()
+                .map(e -> new MotamashePasuxi(e.getKey(), e.getValue()))
+                .toList();
+
         return new TamashisMdgomareobisPasuxi(
             sesia.otaxisId(),
             raundi.raundisFaza().name(),
@@ -105,7 +109,7 @@ public class TamashisMdgomareobisGadamaketebeli {
             amotrialebuliKarti,
             qulebi,
             gamarjvebuliGundi, datvliliKombinaciebi, kombinaciisGamarjvebuliGundi,
-null,
+            motamasheebi,
             raundi.kozirobisMdgomareoba().kozirobisFaza().name(),
             raundi.kozirobisMdgomareoba().sityvaVinujdenzea()
         );
