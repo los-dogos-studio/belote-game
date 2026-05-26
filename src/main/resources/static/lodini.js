@@ -14,16 +14,14 @@ async function sheamowmeMdgomareoba() {
     try {
         const response = await fetch(`/api/tamashi/${otaxisId}/mdgomareoba?zedmetsaxeli=${encodeURIComponent(zedmetsaxeli)}`);
         if (!response.ok) {
-            const eroriTexti = await response.text();
-            erorisSpani.textContent = eroriTexti;
+            erorisSpani.textContent = await response.text();
             return;
         }
 
         const monacemebi = await response.json();
         ganaaxleEkrani(monacemebi);
 
-        const motamasheebi = monacemebi.motamasheebi || [];
-        if (motamasheebi.length === 4) {
+        if (monacemebi.faza === "KOZIROBA") {
             if (shemowmebisIntervali) clearInterval(shemowmebisIntervali);
             window.location.href = '/tamashi.html';
         }
@@ -49,7 +47,7 @@ function ganaaxleEkrani(monacemebi) {
         if (motamashe.gundi === 'A') {
             gundiAShiVincaa.appendChild(li);
             if (motamashe.zedmetsaxeli === zedmetsaxeli) motamasheRomelGundsacEkutvnis = 'A';
-        } else if (motamshe.gundi === 'B') {
+        } else if (motamashe.gundi === 'B') {
             gundiBShiVincaa.appendChild(li);
             if (motamashe.zedmetsaxeli === zedmetsaxeli) motamasheRomelGundsacEkutvnis = 'B';
         }

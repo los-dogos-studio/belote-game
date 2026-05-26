@@ -1,15 +1,14 @@
 const zedmetsaxeliInput = document.querySelector('#zedmetsaxeli');
 const otaxisIdInput = document.querySelector('#otaxisId');
 const shesvlaButton = document.querySelector('#shesvlis-ghilaki');
-const eroriSpani = document.querySelector('#eroriSpani');
-const gundisArchevaSelecti = document.querySelector('#romel-gundshi-joindeba')
+const eroriSpani = document.querySelector('#erori #value');
+const gundisArchevaSelecti = document.querySelector('#romel-gundshi-joindeba');
 
 shesvlaButton.addEventListener('click', async (e) => {
     e.preventDefault();
-
     const zedmetsaxeli = zedmetsaxeliInput.value.trim();
     const otaxisId = otaxisIdInput.value.trim();
-    const shercheuliGundi = gundisArchevaSelecti.value.trim();
+    const shercheuliGundi = gundisArchevaSelecti.value;
 
     eroriSpani.textContent = '';
 

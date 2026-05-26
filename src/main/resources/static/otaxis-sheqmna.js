@@ -25,6 +25,7 @@ otaxisSheqmnisGhilaki.addEventListener('click', async (e) => {
         const monacemebi = await response.json();
         if (monacemebi.otaxisId) {
             localStorage.setItem('otaxisId', monacemebi.otaxisId);
+            localStorage.setItem('zedmetsaxeli', zedmetsaxeli);
             window.location.href = '/lodini.html';
         } else {
             erorisSpani.textContent = 'სერვერის პასუხი არ შეიცავს ოთახის ID-ს';
@@ -32,6 +33,5 @@ otaxisSheqmnisGhilaki.addEventListener('click', async (e) => {
     } catch (err) {
         erorisSpani.textContent = 'ქსელის შეცდომა სცადეთ თავიდან';
     }
-
 
 });
