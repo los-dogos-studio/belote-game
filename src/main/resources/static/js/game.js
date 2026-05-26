@@ -9,9 +9,20 @@ let otaxisId = localStorage.getItem('otaxisId');
 let currentState = null;
 let declarePhaseStart = 0;
 let declaredCombos = [];
+let lastRenderedStateJSON = null;
+let pollingPaused = false;
 
 if (!nickname || !otaxisId) {
   window.location.href = 'index.html';
+}
+
+function pausePolling() {
+  pollingPaused = true;
+}
+
+function resumePolling() {
+  pollingPaused = false;
+  poll();
 }
 
 function showError(msg) {
@@ -44,12 +55,21 @@ function createCardEl(cveti, ranki, clickable = false, onclick = null) {
 }
 
 async function poll() {
+  if (pollingPaused) return;
+
   try {
     currentState = await api.getState(otaxisId, nickname);
     if (!currentState) {
       showError('Empty state response');
       return;
     }
+
+    const stateJSON = JSON.stringify(currentState);
+    if (stateJSON === lastRenderedStateJSON) {
+      return;
+    }
+    lastRenderedStateJSON = stateJSON;
+
     document.getElementById('room-display').textContent = otaxisId;
     if (currentState.qula) {
       document.getElementById('score-a').textContent = currentState.qula.gundiAQula || 0;
@@ -159,6 +179,10 @@ function renderBidding(state) {
         suit.appendChild(opt);
       }
     });
+
+    suit.addEventListener('focus', pausePolling);
+    suit.addEventListener('blur', resumePolling);
+
     actions.appendChild(suit);
 
     if (state.sityvaVinujdenzea) {
@@ -210,6 +234,15 @@ function renderDeclare(state) {
   });
 
   updateComboListDisplay();
+
+  document.getElementById('combo-type').addEventListener('focus', pausePolling);
+  document.getElementById('combo-type').addEventListener('blur', resumePolling);
+  document.getElementById('combo-suit').addEventListener('focus', pausePolling);
+  document.getElementById('combo-suit').addEventListener('blur', resumePolling);
+  document.getElementById('combo-rank').addEventListener('focus', pausePolling);
+  document.getElementById('combo-rank').addEventListener('blur', resumePolling);
+  document.getElementById('combo-length').addEventListener('focus', pausePolling);
+  document.getElementById('combo-length').addEventListener('blur', resumePolling);
 }
 
 function updateComboForm() {
