@@ -1,7 +1,7 @@
 import { getGameState, bidAccept, bidPass, bidSuitRound2, bidSuitForced } from './api.js';
 import { getSession } from './storage.js';
 import { startPolling } from './polling.js';
-import { SUIT_SYMBOLS, SUIT_COLORS, RANK_LABELS, parseCard } from './cards.js';
+import { SUIT_SYMBOLS, SUIT_COLORS, RANK_LABELS, parseCard, cardEl } from './cards.js';
 
 const { nickname, roomId } = getSession();
 if (!nickname || !roomId) window.location.href = 'index.html';
@@ -19,16 +19,16 @@ const SLOTS = { 0: pBottom, 1: pLeft, 2: pTop, 3: pRight };
 const SUITS = ['GULI', 'WKENTI', 'JVARI', 'YVAVI'];
 
 function renderPlayer(el, player, isActive) {
-  el.textContent = player ? player.zedmetsaxeli : '';
-  el.className = 'player-slot' + (isActive ? ' active' : '');
+  if (!player) { el.textContent = ''; el.className = 'player-slot'; return; }
+  el.textContent = player.zedmetsaxeli;
+  el.className = `player-slot team-${player.gundi.toLowerCase()}${isActive ? ' active' : ''}`;
 }
 
 function renderFlippedCard(str) {
-  if (!str) { centerCard.innerHTML = ''; return; }
+  centerCard.innerHTML = '';
+  if (!str) return;
   const { suit, rank } = parseCard(str);
-  const sym = SUIT_SYMBOLS[suit];
-  const col = SUIT_COLORS[suit];
-  centerCard.innerHTML = `<span class="playing-card" style="color:${col}">${sym} ${RANK_LABELS[rank]}</span>`;
+  centerCard.appendChild(cardEl(suit, rank));
 }
 
 function suitButton(suit, onClick) {

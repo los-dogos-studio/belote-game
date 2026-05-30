@@ -1,7 +1,7 @@
 import { getGameState, playCard, declareCombo, readyForPlay, showCombos } from './api.js';
 import { getSession } from './storage.js';
 import { startPolling } from './polling.js';
-import { SUIT_SYMBOLS, SUIT_COLORS, RANK_LABELS } from './cards.js';
+import { SUIT_SYMBOLS, SUIT_COLORS, RANK_LABELS, cardEl } from './cards.js';
 
 const { nickname, roomId } = getSession();
 if (!nickname || !roomId) window.location.href = 'index.html';
@@ -47,14 +47,6 @@ let roundEndUntil = 0;
 
 // ─── SHARED HELPERS ─────────────────────────────────────────────────────────
 
-function cardEl(suit, rank) {
-  const el = document.createElement('span');
-  el.className = 'playing-card';
-  el.style.color = SUIT_COLORS[suit];
-  el.textContent = `${SUIT_SYMBOLS[suit]} ${RANK_LABELS[rank]}`;
-  return el;
-}
-
 function renderTopBar(state) {
   scoreA.textContent = `A: ${state.qula.gundiAQula}`;
   scoreB.textContent = `B: ${state.qula.gundiBQula}`;
@@ -74,9 +66,9 @@ function renderPlayers(state) {
     const diff = (p.pozicia - me.pozicia + 4) % 4;
     const el = SLOTS[diff];
     if (!el) continue;
-    el.textContent = `${p.zedmetsaxeli} (${p.gundi})`;
-    el.className = 'player-slot' + (p.zedmetsaxeli === state.mimdinareMotamashisZedmetsaxeli ? ' active' : '');
-    el.style.color = 'rgba(255,255,255,0.9)';
+    el.textContent = p.zedmetsaxeli;
+    const isActive = p.zedmetsaxeli === state.mimdinareMotamashisZedmetsaxeli;
+    el.className = `player-slot team-${p.gundi.toLowerCase()}${isActive ? ' active' : ''}`;
   }
 }
 
@@ -138,8 +130,11 @@ function renderComboHand(cards, trumpSuit) {
     if (lockedIdx.has(i)) {
       el.style.opacity = '0.3';
     } else {
-      el.style.cursor = 'pointer';
-      if (selectedIdx.has(i)) el.style.outline = '3px solid #f57c00';
+      el.classList.add('playable');
+      if (selectedIdx.has(i)) {
+        el.style.transform = 'translateY(-8px)';
+        el.style.boxShadow = '0 8px 16px rgba(245,124,0,0.5)';
+      }
       el.addEventListener('click', () => {
         if (selectedIdx.has(i)) selectedIdx.delete(i); else selectedIdx.add(i);
         renderComboHand(cards, trumpSuit);
@@ -163,7 +158,7 @@ function updateComboTypeButtons(cards, trumpSuit) {
     btn.textContent = label;
     btn.style.cssText = 'background:#1976d2; color:white; margin:0.2rem;';
     btn.addEventListener('click', () => {
-      const rankOrder = (type === 'ERTNAIREBI' || selected[0].cveti !== trumpSuit) ? RANK_ORDER : TRUMP_RANK_ORDER;
+      const rankOrder = RANK_ORDER;
       const umaghlesiRanki = selected.reduce((best, c) =>
         rankOrder.indexOf(c.ranki) > rankOrder.indexOf(best) ? c.ranki : best
       , selected[0].ranki);
@@ -244,10 +239,10 @@ function renderKrugebi(state) {
     const el = cardEl(card.cveti, card.ranki);
     el.style.margin = '0.2rem';
     if (isMyTurn) {
-      el.style.cursor = 'pointer';
+      el.classList.add('playable');
       el.addEventListener('click', () => handleCardClick(card, state));
     } else {
-      el.style.opacity = '0.7';
+      el.style.opacity = '0.6';
     }
     handDiv.appendChild(el);
   });
