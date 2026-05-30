@@ -15,7 +15,7 @@ const trumpBar   = document.getElementById('trumpBar');
 const actionsDiv = document.getElementById('actions');
 const errorDiv   = document.getElementById('error');
 
-const SLOTS = { 0: pBottom, 1: pRight, 2: pTop, 3: pLeft };
+const SLOTS = { 0: pBottom, 1: pLeft, 2: pTop, 3: pRight };
 const SUITS = ['GULI', 'WKENTI', 'JVARI', 'YVAVI'];
 
 function renderPlayer(el, player, isActive) {
