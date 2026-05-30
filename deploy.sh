@@ -1,4 +1,4 @@
-# deploy.sh (in your project root on your laptop)
+# deploy.sh
 #!/bin/bash
 set -e
 APP=belote-game
